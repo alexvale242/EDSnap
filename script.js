@@ -1,7 +1,6 @@
 let state = {
     totalElements: 0,
     edsElements: 0,
-    irrelevantElements: 0,
     score: 0,
     ruleResults: [],
     globalRuleResults: [],
@@ -14,8 +13,6 @@ function parseGlobalRules() {
 function traverseDOM(node) {
     if (node.nodeType === Node.ELEMENT_NODE || node.nodeType === Node.DOCUMENT_NODE) {
         if (nodeIrrellevant(node)) {
-            console.log('Irrelevant node:', node.id);
-            state.irrelevantElements++;
             return;
         }
 
@@ -63,7 +60,6 @@ function calculateScore() {
 function resetState() {
     state.totalElements = 0;
     state.edsElements = 0;
-    state.irrelevantElements = 0;
     state.score = 0;
     state.ruleResults = [];
     state.globalRuleResults = [];

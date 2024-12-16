@@ -47,7 +47,6 @@ function generateStateHtml(state) {
         const percentage = (state.edsElements / state.totalElements * 100).toFixed(2);
         html += "<p>Total Elements: " + state.totalElements + "</p>";
         html += "<p>EDS Elements: " + state.edsElements + "</p>";
-        html += "<p>Irrelevant Elements: " + state.irrelevantElements + "</p>";
         html += "<p>Score: " + state.score + "</p>";
         html += "<p>Percentage: " + percentage + "%</p>";
     }
