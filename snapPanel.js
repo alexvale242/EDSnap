@@ -65,13 +65,13 @@ function clearScore() {
 function createRulesContainer() {
   const rulesContainer = document.createElement('div');
   let innerHTML = '';
-  
-  state.ruleResults.forEach(rule => {
-    innerHTML += `<div>${ruleResult(rule)}</div>`;
-  });
 
   state.globalRuleResults.forEach(rule => {
     innerHTML += `<div>${globalRuleResult(rule)}</div>`;
+  });
+
+  state.ruleResults.forEach(rule => {
+    innerHTML += `<div>${ruleResult(rule)}</div>`;
   });
 
   rulesContainer.innerHTML = innerHTML;
