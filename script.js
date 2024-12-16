@@ -2,7 +2,7 @@ let state = {
     totalElements: 0,
     edsElements: 0,
     irrelevantElements: 0,
-    score: 0, // Add score to the state
+    score: 0,
     ruleResults: []
 };
 
