@@ -1,8 +1,8 @@
 // Run the highlighting script initially when the DOM is loaded
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
-        injectEdsSnapPanel(runSnap, unSnap);
+        createPanel();
     });
 } else {
-    injectEdsSnapPanel(runSnap, unSnap);
+    createPanel();
 }
