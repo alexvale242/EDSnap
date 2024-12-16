@@ -1,5 +1,3 @@
-import { COMPONENTS } from './components.js';
-
 const state = {
     totalElements: 0,
     edsElements: 0,

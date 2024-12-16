@@ -1,4 +1,4 @@
-  function injectEdsSnapPanel() {
+  function injectEdsSnapPanel(runSnap, unSnap) {
     const panel = document.createElement('div');
     panel.id = 'eds-snap-panel';
     panel.innerHTML = `
@@ -17,17 +17,3 @@
     const unSnapButton = panel.querySelector('#unSnapButton');
     unSnapButton.addEventListener('click', unSnap);
   }
-
-  function initPage() {
-    injectEdsSnapPanel();
-  }
-  
-  // Run the highlighting script initially when the DOM is loaded
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      initPage();
-    });
-  } else {
-    initPage();
-  }
-  
