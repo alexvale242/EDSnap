@@ -1,24 +1,24 @@
-let totalElements = 0;
-let edsElements = 0;
+const state = {
+    totalElements: 0,
+    edsElements: 0,
+    irrelevantElements: 0,
+};
 
 function traverseDOM(node) {
     if (node.nodeType === Node.ELEMENT_NODE || node.nodeType === Node.DOCUMENT_NODE) {
         if (nodeIrrellevant(node)) {
+            state.irrelevantElements++;
             return;
         }
 
-        // Increment the total elements counter
-        totalElements++;
+        state.totalElements++;
 
-        // Log the node name and class names of the node
         console.log(`Node Name: ${node.nodeName}, Class Names: ${node.className || 'No class'}`);
 
         if (typeof node.className === 'string' && node.className.includes('eds')) {
-            // Increment the 'eds' elements counter
-            edsElements++;
+            state.edsElements++;
         }
 
-        // Recursively process child nodes
         node.childNodes.forEach(traverseDOM);
     }
 }
@@ -28,13 +28,11 @@ function nodeIrrellevant(node) {
     return irrelevantNodeNames.includes(node.nodeName);
 }
 
-// Start traversing from the root (document)
 setTimeout(() => {
     traverseDOM(document.documentElement);
-    // Log the counters after traversal
-    console.log(`Total Elements: ${totalElements}`);
-    console.log(`Elements with 'eds' in class name: ${edsElements}`);
-    // Calculate and log the percentage
-    const percentage = (edsElements / totalElements) * 100;
+    console.log(`Total Elements: ${state.totalElements}`);
+    console.log(`Elements with 'eds' in class name: ${state.edsElements}`);
+    console.log(`Irrelevant Elements: ${state.irrelevantElements}`);
+    const percentage = (state.edsElements / state.totalElements) * 100;
     console.log(`Percentage of 'eds' elements: ${percentage.toFixed(2)}%`);
 }, 2000);
