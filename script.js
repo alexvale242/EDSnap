@@ -218,7 +218,7 @@ function createResultsPanel() {
     panel.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
     panel.style.color = 'white';
     panel.style.borderRadius = '5px';
-    panel.style.zIndex = '1000';
+    panel.style.zIndex = '9999';
 
     const percentageDiv = document.createElement('div');
     percentageDiv.id = 'percentage';
