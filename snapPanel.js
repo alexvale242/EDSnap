@@ -1,7 +1,9 @@
+
 const panelHeaderHTML = `
 <header id="panel-header">
-      <h2>EDS Snap Panel</h2>
+      <h1>EDS Snap Panel</h1>
       <p>This is a custom panel that has been injected into the page.</p>
+      <h2 id="score" style="display: none">Score: 0</h2>
       <button id="runSnapButton">Run Snap</button>
       <button id="unSnapButton">Unsnap</button>
 </header>
@@ -32,10 +34,10 @@ function createPanel(state) {
     panel.querySelector('#runSnapButton').onclick = () => {
       runSnap();
       panel.appendChild(createRulesContainer());
+      calculateAndDisplayScore();
     };
 
-    const unSnapButton = panel.querySelector('#unSnapButton');
-    unSnapButton.addEventListener('click', unSnap);
+    panel.querySelector('#unSnapButton').onclick = unSnap;
 }
 
 function generateStateHtml(state) {
@@ -60,6 +62,17 @@ function updateScore(state) {
 
 function clearScore() {
     createPanel();
+}
+
+function calculateAndDisplayScore() {
+    const score = calculateScore();
+    const panel = document.getElementById('eds-snap-panel');
+    panel.querySelector('#score').style.display = 'block';
+    panel.querySelector('#score').innerText = `Score: ${score}`;
+}
+
+function calculateScore() {
+  return state.edsElements + state.ruleResults.filter(rule => rule.result).length - state.ruleResults.filter(rule => !rule.result).length; 
 }
 
 function createRulesContainer() {
