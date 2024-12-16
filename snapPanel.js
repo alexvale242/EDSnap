@@ -1,4 +1,5 @@
 
+const mergeIssue = "BANANANANANANANANANANANA"
 const panelHeaderHTML = `
 <header id="panel-header">
       <h1>EDS Snap Panel</h1>
