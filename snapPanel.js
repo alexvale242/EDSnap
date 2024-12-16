@@ -29,8 +29,10 @@ function createPanel(state) {
 
     panel.innerHTML = html;
 
-    const runSnapButton = panel.querySelector('#runSnapButton');
-    runSnapButton.addEventListener('click', runSnap);
+    panel.querySelector('#runSnapButton').onclick = () => {
+      runSnap();
+      panel.appendChild(createRulesContainer());
+    };
 
     const unSnapButton = panel.querySelector('#unSnapButton');
     unSnapButton.addEventListener('click', unSnap);
@@ -60,3 +62,28 @@ function clearScore() {
     createPanel();
 }
 
+function createRulesContainer() {
+  const rulesContainer = document.createElement('div');
+  let innerHTML = '';
+  
+  state.ruleResults.forEach(rule => {
+    innerHTML += `<div>${ruleResult(rule)}</div>`;
+  });
+
+  rulesContainer.innerHTML = innerHTML;
+
+  return rulesContainer;
+}
+
+function ruleResult(ruleResult) {
+  const name = ruleDictionary[ruleResult.rule].name;
+  const severity = ruleDictionary[ruleResult.rule].severity;
+  const description = ruleDictionary[ruleResult.rule].description;
+  const result = ruleResult.result;
+  return `
+    <h3>${name}</h3>
+    <p>Severity: ${severity}</p>
+    <p>Description: ${description}</p>
+    <p>Result: ${result}</p>
+  `;
+}
