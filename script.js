@@ -243,10 +243,23 @@ function updatePanelContent(percentage, score) {
     }
 }
 
-setTimeout(() => {
+function runSnap() {
+    console.log("Running Snap...");
     traverseDOM(document.documentElement);
     const percentage = (state.edsElements / state.totalElements) * 100;
     state.score = Math.floor(percentage / 10); // Update score based on percentage
     createResultsPanel();
     updatePanelContent(percentage, state.score);
-}, 2000);
+}
+
+function unSnap() {
+    console.log("Unsnapping...");
+    state.totalElements = 0;
+    state.edsElements = 0;
+    state.irrelevantElements = 0;
+    state.score = 0;
+    const panel = document.getElementById('fixed-panel');
+    if (panel) {
+        panel.remove();
+    }
+}

@@ -10,7 +10,7 @@
     "content_scripts": [
       {
         "matches": ["https://*.enable.com/*"],
-        "js": ["script.js", "script_lc.js"],
+        "js": ["script.js", "snapPanel.js"],
         "css": ["styles.css"],
         "run_at": "document_idle"
       }
