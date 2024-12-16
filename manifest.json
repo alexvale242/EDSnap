@@ -9,7 +9,7 @@
     },
     "content_scripts": [
       {
-        "matches": ["https://uk-dev.trading-programs.enable.com/*"],
+        "matches": ["https://*.enable.com/*"],
         "js": ["script.js", "script_lc.js"],
         "run_at": "document_idle"
       }
