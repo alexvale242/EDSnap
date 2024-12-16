@@ -9,5 +9,11 @@ const ruleDictionary = {
         name: 'Input has eds-input class',
         severity: 'medium',
         description: 'Input type element should have the eds-input class',
+    },
+
+    angularMaterialInUse: {
+        name: 'No angular material elements',
+        severity: 'medium',
+        description: 'No external angular material elements should be used',
     }
 }

@@ -25,5 +25,10 @@ function inputHasEdsInputClass(node) {
     return node.classList && node.classList.contains('eds-input');
 }
 
+function materialElementPresent(node) {
+    return !node.nodeName.toLowerCase().includes('mat');
+}
+
 rule('selectHasEdsSelectClass', selectHasEdsSelectClass, node => node.nodeName === 'SELECT');
 rule('inputHasEdsInputClass', inputHasEdsInputClass, node => node.nodeName === 'INPUT' || node.nodeName === 'TEXTAREA' || node.nodeName === 'SELECT');
+rule('angularMaterialInUse', materialElementPresent, node => node.nodeName.toLowerCase().includes('mat'));
