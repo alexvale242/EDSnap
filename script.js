@@ -1,9 +1,10 @@
 let state = {
     totalElements: 0,
-    edsElements: 0,
+    edsElementCount: 0,
     score: 0,
     ruleResults: [],
     globalRuleResults: [],
+    edsElements: []
 };
 
 function parseGlobalRules() {
@@ -17,12 +18,9 @@ function traverseDOM(node) {
         }
 
         ruleParser(node);
-
+        edsElementsParser(node);
         state.totalElements++;
 
-        if (nodeIsEdsComponent(node) || typeof node.className === 'string' && classNames.includes(node.className)) {
-            state.edsElements++;
-        }
 
         node.childNodes.forEach(traverseDOM);
     }
@@ -53,14 +51,15 @@ function unSnap() {
 }
 
 function calculateScore() {
-    const percentage = (state.edsElements / state.totalElements) * 100;
+    const percentage = (state.edsElementCount / state.totalElements) * 100;
     state.score = Math.floor(percentage / 10);
 }
 
 function resetState() {
     state.totalElements = 0;
-    state.edsElements = 0;
+    state.edsElementCount = 0;
     state.score = 0;
+    state.edsElements = [];
     state.ruleResults = [];
     state.globalRuleResults = [];
 }

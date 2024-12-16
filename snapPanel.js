@@ -55,9 +55,9 @@ function generateStateHtml(state) {
     let html = `<div id="panel-score">`;
 
     if (state !== undefined && state !== null) {
-        const percentage = (state.edsElements / state.totalElements * 100).toFixed(2);
+        const percentage = (state.edsElementCount / state.totalElements * 100).toFixed(2);
         html += "<p>Total Elements: " + state.totalElements + "</p>";
-        html += "<p>EDS Elements: " + state.edsElements + "</p>";
+        html += "<p>EDS Elements: " + state.edsElementCount + "</p>";
         html += "<p>Score: " + state.score + "</p>";
         html += "<p>Percentage: " + percentage + "%</p>";
     }
@@ -82,7 +82,7 @@ function calculateAndDisplayScore() {
 }
 
 function calculateScore() {
-  return state.edsElements + state.ruleResults.filter(rule => rule.result).length - state.ruleResults.filter(rule => !rule.result).length; 
+  return state.edsElementCount + state.ruleResults.filter(rule => rule.result).length - state.ruleResults.filter(rule => !rule.result).length; 
 }
 
 function createRulesContainer() {
