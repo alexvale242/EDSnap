@@ -1,8 +1,9 @@
-const state = {
+let state = {
     totalElements: 0,
     edsElements: 0,
     irrelevantElements: 0,
     score: 0, // Add score to the state
+    ruleResults: []
 };
 
 function traverseDOM(node) {
@@ -11,6 +12,8 @@ function traverseDOM(node) {
             state.irrelevantElements++;
             return;
         }
+
+        ruleParser(node);
 
         state.totalElements++;
 
@@ -70,15 +73,18 @@ function updatePanelContent(percentage, score) {
 
 function runSnap() {
     console.log("Running Snap...");
+    resetState();
     traverseDOM(document.documentElement);
     const percentage = (state.edsElements / state.totalElements) * 100;
     state.score = Math.floor(percentage / 10); // Update score based on percentage
     createResultsPanel();
     updatePanelContent(percentage, state.score);
+    console.log(state.ruleResults);
 }
 
 function unSnap() {
     console.log("Unsnapping...");
+    resetState();
     state.totalElements = 0;
     state.edsElements = 0;
     state.irrelevantElements = 0;
@@ -87,4 +93,14 @@ function unSnap() {
     if (panel) {
         panel.remove();
     }
+}
+
+function resetState() {
+    state = {
+        totalElements: 0,
+        edsElements: 0,
+        irrelevantElements: 0,
+        score: 0, // Add score to the state
+        ruleResults: []
+    };    
 }
