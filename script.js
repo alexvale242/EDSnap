@@ -3,6 +3,10 @@ let edsElements = 0;
 
 function traverseDOM(node) {
     if (node.nodeType === Node.ELEMENT_NODE || node.nodeType === Node.DOCUMENT_NODE) {
+        if (nodeIrrellevant(node)) {
+            return;
+        }
+
         // Increment the total elements counter
         totalElements++;
 
@@ -12,12 +16,16 @@ function traverseDOM(node) {
         if (typeof node.className === 'string' && node.className.includes('eds')) {
             // Increment the 'eds' elements counter
             edsElements++;
-            console.log('EDS');
         }
 
         // Recursively process child nodes
         node.childNodes.forEach(traverseDOM);
     }
+}
+
+function nodeIrrellevant(node) {
+    const irrelevantNodeNames = ['HEAD', 'SCRIPT', 'STYLE', 'IFRAME', 'SVG'];
+    return irrelevantNodeNames.includes(node.nodeName);
 }
 
 // Start traversing from the root (document)
