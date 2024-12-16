@@ -26,7 +26,7 @@ function inputHasEdsInputClass(node) {
 }
 
 function materialElementPresent(node) {
-    return !node.nodeName.toLowerCase().includes('mat');
+    return false;
 }
 
 rule('selectHasEdsSelectClass', selectHasEdsSelectClass, node => node.nodeName === 'SELECT');
