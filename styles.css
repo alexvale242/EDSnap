@@ -1,0 +1,14 @@
+#eds-snap-panel {
+    position: fixed;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          background-color: #fff;
+          border-left: 1px solid #ccc;
+          padding: 32px;
+          z-index: 9999;
+}
+
+.eds-snap-highlight {
+    box-shadow: inset 0px 0px 2px 2px rgba(0,255,0,1);
+}
