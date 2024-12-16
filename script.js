@@ -3,8 +3,13 @@ let state = {
     edsElements: 0,
     irrelevantElements: 0,
     score: 0,
-    ruleResults: []
+    ruleResults: [],
+    globalRuleResults: [],
 };
+
+function parseGlobalRules() {
+    globalRuleParser();
+}
 
 function traverseDOM(node) {
     if (node.nodeType === Node.ELEMENT_NODE || node.nodeType === Node.DOCUMENT_NODE) {
