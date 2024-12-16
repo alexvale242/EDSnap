@@ -1,5 +1,5 @@
 function panelHeaderHTML() {
-  const logoUrl = chrome.runtime.getURL('EDSnap_Logo.png'); // Get the full URL for the logo
+  const logoUrl = chrome.runtime.getURL('logo-green.png'); // Get the full URL for the logo
   const panelHtml = `
     <header id="panel-header">
       <img src="${logoUrl}" alt="EDS Logo" id="snapPanelLogo">
@@ -13,7 +13,9 @@ function panelFooterHTML() {
  }
 
 function updatePanelContent(state) {
-  var panelContent = document.getElementById('eds-snap-panel-content');
+  const panel = document.getElementById('eds-snap-panel');
+  const shadow = panel.shadowRoot;
+  var panelContent = shadow.getElementById('eds-snap-panel-content');
   if (state !== undefined && state !== null) {
     panelContent.innerHTML += generateStateHtml(state);
   }
@@ -30,36 +32,41 @@ function createPanel() {
         document.body.appendChild(panel);
     }
 
-    panel.innerHTML += panelHeaderHTML();
-    var panelContent = document.getElementById('eds-snap-panel-content');
-    if (panelContent === null) {
-      panelContent = document.createElement('div');
-      panelContent.id = 'eds-snap-panel-content';
-      panel.appendChild(panelContent);
-    }
+    const shadow = panel.attachShadow({ mode: 'open' });
+    
+    // Create a link element for the external stylesheet
+    const linkElem = document.createElement('link');
+    linkElem.setAttribute('rel', 'stylesheet');
+    linkElem.setAttribute('href', chrome.runtime.getURL('styles.css')); // Update with the correct path to your stylesheet
 
-    panelContent.innerHTML += `<h2 id="score"></h2>`;
-    panel.innerHTML += panelFooterHTML();
-    panel.querySelector('#runSnapButton').onclick = () => {
+    shadow.innerHTML = `
+      ${linkElem.outerHTML}
+      <div id="eds-snap-panel-root">
+      ${panelHeaderHTML()}
+      <div id="eds-snap-panel-content"><h3 id="score"></h3></div>
+      ${panelFooterHTML()}
+      </div>
+    `;
+
+    shadow.querySelector('#runSnapButton').onclick = () => {
       runSnap();
-      var panelContent = document.getElementById('eds-snap-panel-content');
+      const panelContent = shadow.getElementById('eds-snap-panel-content');
       calculateAndDisplayScore();
       panelContent.appendChild(createRulesContainer());
     };
-      
-    panel.querySelector('#unSnapButton').onclick = unSnap;
-    
-  };  
+
+    shadow.querySelector('#unSnapButton').onclick = unSnap;
+}
 
 function generateStateHtml(state) {
     let html = `<div id="panel-score">`;
 
     if (state !== undefined && state !== null) {
         const percentage = (state.edsElementCount / state.totalElements * 100).toFixed(2);
-        html += "<p>Total Elements: " + state.totalElements + "</p>";
-        html += "<p>EDS Elements: " + state.edsElementCount + "</p>";
-        html += "<p>Score: " + state.score + "</p>";
-        html += "<p>Percentage: " + percentage + "%</p>";
+        html += `<p>Total Elements: ${state.totalElements} <br />
+        <p>EDS Elements: ${state.edsElementCount} <br />
+        <p>Score: ${state.score} <br />
+        <p>Percentage: ${percentage}%</p>`;
     }
 
     html += "</div>";
@@ -76,7 +83,9 @@ function clearScore() {
 
 function calculateAndDisplayScore() {
     const score = calculateScore();
-    const panelContent = document.getElementById('eds-snap-panel-content');
+    const panel = document.getElementById('eds-snap-panel');
+    const shadow = panel.shadowRoot;
+    const panelContent = shadow.getElementById('eds-snap-panel-content');
     panelContent.querySelector('#score').style.display = 'block';
     panelContent.querySelector('#score').innerText = `Score: ${score}`;
 }
@@ -90,11 +99,11 @@ function createRulesContainer() {
   let innerHTML = '';
 
   state.globalRuleResults.forEach(rule => {
-    innerHTML += `<div>${globalRuleResult(rule)}</div>`;
+    innerHTML += `<div class="result">${globalRuleResult(rule)}</div>`;
   });
 
   state.ruleResults.forEach(rule => {
-    innerHTML += `<div>${ruleResult(rule)}</div>`;
+    innerHTML += `<div class="result">${ruleResult(rule)}</div>`;
   });
 
   rulesContainer.innerHTML = innerHTML;
@@ -108,10 +117,12 @@ function ruleResult(ruleResult) {
   const description = ruleDictionary[ruleResult.rule].description;
   const result = ruleResult.result;
   return `
+    <div class="rule-result">
     <h3>${name}</h3>
     <p>Severity: ${severity}</p>
     <p>Description: ${description}</p>
     <p>Result: ${result}</p>
+    </div>
   `;
 }
 
@@ -121,9 +132,11 @@ function globalRuleResult(ruleResult) {
     const description = globalRuleDictionary[ruleResult.rule].description;
     const result = ruleResult.result;
     return `
+    <div class="rule-result">
       <h3>${name}</h3>
       <p>Severity: ${severity}</p>
       <p>Description: ${description}</p>
       <p>Result: ${result}</p>
+      </div>
     `;
   }

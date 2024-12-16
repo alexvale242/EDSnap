@@ -30,7 +30,7 @@
   ],
   "web_accessible_resources": [
     {
-      "resources": ["EDSnap_Logo.png"],
+      "resources": ["EDSnap_Logo.png", "styles.css", "logo-green.png", "logo-black.png"],
       "matches":["https://*.enable.com/*"]
     }
   ]
