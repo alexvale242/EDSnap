@@ -2,6 +2,7 @@ const state = {
     totalElements: 0,
     edsElements: 0,
     irrelevantElements: 0,
+    score: 0, // Add score to the state
 };
 
 function traverseDOM(node) {
@@ -12,8 +13,6 @@ function traverseDOM(node) {
         }
 
         state.totalElements++;
-
-        console.log(`Node Name: ${node.nodeName}, Class Names: ${node.className || 'No class'}`);
 
         if (typeof node.className === 'string' && node.className.includes('eds')) {
             state.edsElements++;
@@ -28,11 +27,45 @@ function nodeIrrellevant(node) {
     return irrelevantNodeNames.includes(node.nodeName);
 }
 
+function createResultsPanel() {
+    const panel = document.createElement('div');
+    panel.id = 'fixed-panel';
+    panel.style.position = 'fixed';
+    panel.style.bottom = '10px';
+    panel.style.right = '10px';
+    panel.style.padding = '10px';
+    panel.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+    panel.style.color = 'white';
+    panel.style.borderRadius = '5px';
+    panel.style.zIndex = '1000';
+
+    const percentageDiv = document.createElement('div');
+    percentageDiv.id = 'percentage';
+    panel.appendChild(percentageDiv);
+
+    const scoreDiv = document.createElement('div');
+    scoreDiv.id = 'score';
+    panel.appendChild(scoreDiv);
+
+    document.body.appendChild(panel);
+}
+
+function updatePanelContent(percentage, score) {
+    const percentageDiv = document.getElementById('percentage');
+    if (percentageDiv) {
+        percentageDiv.textContent = `Percentage of 'eds' elements: ${percentage.toFixed(2)}%`;
+    }
+
+    const scoreDiv = document.getElementById('score');
+    if (scoreDiv) {
+        scoreDiv.textContent = `Score: ${score}`;
+    }
+}
+
 setTimeout(() => {
     traverseDOM(document.documentElement);
-    console.log(`Total Elements: ${state.totalElements}`);
-    console.log(`Elements with 'eds' in class name: ${state.edsElements}`);
-    console.log(`Irrelevant Elements: ${state.irrelevantElements}`);
     const percentage = (state.edsElements / state.totalElements) * 100;
-    console.log(`Percentage of 'eds' elements: ${percentage.toFixed(2)}%`);
+    state.score = Math.floor(percentage / 10); // Update score based on percentage
+    createResultsPanel();
+    updatePanelContent(percentage, state.score);
 }, 2000);
