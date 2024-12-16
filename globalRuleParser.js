@@ -14,7 +14,7 @@ function rule(ruleName, ruleCallback) {
 }
 
 function edsIsInstalled() {
-    return Eds !== null;
+    return document.getElementById('grid-overlay') !== null;
 }
 
 rule('edsIsInstalled', edsIsInstalled);

@@ -66,4 +66,5 @@ function resetState() {
     state.irrelevantElements = 0;
     state.score = 0;
     state.ruleResults = [];
+    state.globalRuleResults = [];
 }
