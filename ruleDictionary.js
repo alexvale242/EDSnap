@@ -15,5 +15,11 @@ const ruleDictionary = {
         name: 'No angular material elements',
         severity: 'medium',
         description: 'No external angular material elements should be used',
+    },
+
+    buttonNestedInLink: {
+        name: 'Button nested in link',
+        severity: 'low',
+        description: 'Links should not contain buttons',
     }
 }
