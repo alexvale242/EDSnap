@@ -1,7 +1,7 @@
-const rules = [];
+const globalRules = [];
 
 function globalRuleParser() {
-    rules.forEach(({ ruleName, ruleCallback }) => {
+    globalRules.forEach(({ ruleName, ruleCallback }) => {
         state.globalRuleResults.push({
             rule: ruleName,
             result: ruleCallback(),
@@ -10,11 +10,11 @@ function globalRuleParser() {
 }
 
 function rule(ruleName, ruleCallback) {
-    rules.push({ ruleName, ruleCallback });
+    globalRules.push({ ruleName, ruleCallback });
 }
 
-function edsInstalled() {
-    return eds !== undefined;
+function edsIsInstalled() {
+    return Eds !== null;
 }
 
-rule('edsInstalled', edsInstalled);
+rule('edsIsInstalled', edsIsInstalled);

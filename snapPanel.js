@@ -70,6 +70,10 @@ function createRulesContainer() {
     innerHTML += `<div>${ruleResult(rule)}</div>`;
   });
 
+  state.globalRuleResults.forEach(rule => {
+    innerHTML += `<div>${globalRuleResult(rule)}</div>`;
+  });
+
   rulesContainer.innerHTML = innerHTML;
 
   return rulesContainer;
@@ -87,3 +91,16 @@ function ruleResult(ruleResult) {
     <p>Result: ${result}</p>
   `;
 }
+
+function globalRuleResult(ruleResult) {
+    const name = globalRuleDictionary[ruleResult.rule].name;
+    const severity = globalRuleDictionary[ruleResult.rule].severity;
+    const description = globalRuleDictionary[ruleResult.rule].description;
+    const result = ruleResult.result;
+    return `
+      <h3>${name}</h3>
+      <p>Severity: ${severity}</p>
+      <p>Description: ${description}</p>
+      <p>Result: ${result}</p>
+    `;
+  }

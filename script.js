@@ -43,6 +43,7 @@ function nodeIsEdsComponent(node) {
 
 function runSnap() {
     resetState();
+    parseGlobalRules();
     traverseDOM(document.documentElement);
     calculateScore();
     updateScore(state);

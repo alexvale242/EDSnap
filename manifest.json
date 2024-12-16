@@ -10,7 +10,7 @@
     "content_scripts": [
       {
         "matches": ["https://*.enable.com/*"],
-        "js": ["script.js", "snapPanel.js", "ruleParser.js", "constants.js", "main.js", "ruleDictionary.js"],
+        "js": ["script.js", "snapPanel.js", "ruleParser.js", "constants.js", "main.js", "ruleDictionary.js", "globalRuleParser.js", "globalRuleDictionary.js"],
         "css": ["styles.css"],
         "run_at": "document_idle"
       }
