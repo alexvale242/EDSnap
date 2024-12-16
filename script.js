@@ -8,7 +8,7 @@ let state = {
 
 function traverseDOM(node) {
     if (node.nodeType === Node.ELEMENT_NODE || node.nodeType === Node.DOCUMENT_NODE) {
-        if (nodeIrrellevant(node)) {
+        if (nodeIrrellevant(node) || node.Id === 'eds-snap-panel') {
             state.irrelevantElements++;
             return;
         }
@@ -35,6 +35,7 @@ function nodeIsEdsComponent(node) {
 }
 
 function runSnap() {
+    resetState();
     traverseDOM(document.documentElement);
     const percentage = (state.edsElements / state.totalElements) * 100;
     state.score = Math.floor(percentage / 10); // Update score based on percentage
@@ -44,9 +45,14 @@ function runSnap() {
 
 function unSnap() {
     console.log('Unsnap');
+    resetState();
+    clearScore();
+}
+
+function resetState() {
     state.totalElements = 0;
     state.edsElements = 0;
     state.irrelevantElements = 0;
     state.score = 0;
-    clearScore();
+    state.ruleResults = [];
 }
