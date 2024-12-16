@@ -8,7 +8,8 @@ let state = {
 
 function traverseDOM(node) {
     if (node.nodeType === Node.ELEMENT_NODE || node.nodeType === Node.DOCUMENT_NODE) {
-        if (nodeIrrellevant(node) || node.Id === 'eds-snap-panel') {
+        if (nodeIrrellevant(node)) {
+            console.log('Irrelevant node:', node.id);
             state.irrelevantElements++;
             return;
         }
@@ -27,7 +28,8 @@ function traverseDOM(node) {
 
 function nodeIrrellevant(node) {
     const irrelevantNodeNames = ['HEAD', 'SCRIPT', 'STYLE', 'IFRAME', 'SVG'];
-    return irrelevantNodeNames.includes(node.nodeName);
+    const irrelevantIds = ['eds-snap-panel', 'grid-overlay'];
+    return irrelevantNodeNames.includes(node.nodeName) || irrelevantIds.includes(node.id);
 }
 
 function nodeIsEdsComponent(node) {
@@ -37,16 +39,19 @@ function nodeIsEdsComponent(node) {
 function runSnap() {
     resetState();
     traverseDOM(document.documentElement);
-    const percentage = (state.edsElements / state.totalElements) * 100;
-    state.score = Math.floor(percentage / 10); // Update score based on percentage
+    calculateScore();
     updateScore(state);
     console.log(state.ruleResults);
 }
 
 function unSnap() {
-    console.log('Unsnap');
     resetState();
     clearScore();
+}
+
+function calculateScore() {
+    const percentage = (state.edsElements / state.totalElements) * 100;
+    state.score = Math.floor(percentage / 10);
 }
 
 function resetState() {
