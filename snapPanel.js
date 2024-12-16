@@ -1,21 +1,28 @@
-
-const mergeIssue = "BANANANANANANANANANANANA"
-const panelHeaderHTML = `
-<header id="panel-header">
-      <h1>EDS Snap Panel</h1>
-      <p>This is a custom panel that has been injected into the page.</p>
-      <h2 id="score" style="display: none">Score: 0</h2>
-      <button id="runSnapButton">Run Snap</button>
-      <button id="unSnapButton">Unsnap</button>
-</header>
-    `
-
-function updatePanelHtml(html) {
-    const panel = document.getElementById('eds-snap-panel');
-    panel.innerHTML = html;
+function panelHeaderHTML() {
+  const logoUrl = chrome.runtime.getURL('EDSnap_Logo.png'); // Get the full URL for the logo
+  const panelHtml = `
+    <header id="panel-header">
+      <img src="${logoUrl}" alt="EDS Logo" id="snapPanelLogo">
+</header>`;
+    return panelHtml;
 }
 
-function createPanel(state) {
+function panelFooterHTML() { 
+  return `<footer><button id="runSnapButton">Run Snap</button>
+      <button id="unSnapButton">Unsnap</button></footer>`
+ }
+
+function updatePanelContent(state) {
+  var panelContent = document.getElementById('eds-snap-panel-content');
+  if (state !== undefined && state !== null) {
+    panelContent.innerHTML += generateStateHtml(state);
+  }
+  else {
+    panelContent.innerHTML = `<h2 id="score"></h2>`;
+  }
+}
+
+function createPanel() {
     var panel = document.getElementById('eds-snap-panel');
     if (panel === null) {
         panel = document.createElement('div');
@@ -23,23 +30,26 @@ function createPanel(state) {
         document.body.appendChild(panel);
     }
 
-    var html = "";
-    html += panelHeaderHTML
-
-    if (state !== undefined && state !== null) {
-        html += generateStateHtml(state);
+    panel.innerHTML += panelHeaderHTML();
+    var panelContent = document.getElementById('eds-snap-panel-content');
+    if (panelContent === null) {
+      panelContent = document.createElement('div');
+      panelContent.id = 'eds-snap-panel-content';
+      panel.appendChild(panelContent);
     }
 
-    panel.innerHTML = html;
-
+    panelContent.innerHTML += `<h2 id="score"></h2>`;
+    panel.innerHTML += panelFooterHTML();
     panel.querySelector('#runSnapButton').onclick = () => {
       runSnap();
-      panel.appendChild(createRulesContainer());
+      var panelContent = document.getElementById('eds-snap-panel-content');
       calculateAndDisplayScore();
+      panelContent.appendChild(createRulesContainer());
     };
-
+      
     panel.querySelector('#unSnapButton').onclick = unSnap;
-}
+    
+  };  
 
 function generateStateHtml(state) {
     let html = `<div id="panel-score">`;
@@ -57,18 +67,18 @@ function generateStateHtml(state) {
 }
 
 function updateScore(state) {
-    createPanel(state);
+    updatePanelContent(state);
 }
 
 function clearScore() {
-    createPanel();
+  updatePanelContent();
 }
 
 function calculateAndDisplayScore() {
     const score = calculateScore();
-    const panel = document.getElementById('eds-snap-panel');
-    panel.querySelector('#score').style.display = 'block';
-    panel.querySelector('#score').innerText = `Score: ${score}`;
+    const panelContent = document.getElementById('eds-snap-panel-content');
+    panelContent.querySelector('#score').style.display = 'block';
+    panelContent.querySelector('#score').innerText = `Score: ${score}`;
 }
 
 function calculateScore() {
