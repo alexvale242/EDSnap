@@ -577,6 +577,7 @@ fieldset {
     p {
         overflow-x:hidden;
         word-break: break-word;
+        max-height: 260px;
     }
 }
 
