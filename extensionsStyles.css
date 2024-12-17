@@ -628,6 +628,11 @@ fieldset {
     height: 0;
 }
 
+.eds-snap__rules-board {
+    margin-top: 1rem;
+    border-top: 1px solid var(--eds-brand-color-border-base);
+}
+
 .eds-snap-highlight {
     box-shadow: inset 0px 0px 2px 2px rgba(0, 255, 0, 1) !important;
 }

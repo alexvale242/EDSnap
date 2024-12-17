@@ -123,7 +123,7 @@ function escapeHtml(unsafe) {
 
 function createGlobalRuleHtml(rule) {
     const ruleInfo = globalRuleDictionary[rule.rule] || { name: 'Unknown', severity: 'Unknown', description: 'No description available.' };
-    return `<div class="eds-snap__rule-group">
+    return `<div class="eds-snap__rule-group eds-snap__rule-group--global">
         <label class="eds-snap__rule-heading eds-snap__rule-heading--no-toggle">${ruleInfo.name}</label>
         <p>${ruleInfo.description}</p>
     </div>`;
