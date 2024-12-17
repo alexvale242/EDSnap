@@ -94,6 +94,32 @@ function createRulesContainer() {
   const rulesContainer = document.createElement('div');
   let innerHTML = '';
 
+  /* Static grouped rule for example */
+  const index = 0;
+  const ruleName = 'Eds is not installed';
+  innerHTML += `
+  
+  <div class="eds-snap__rule-group result">
+      <input id="result-grouping-${index}" class="eds-snap__rule-heading-toggle" type="checkbox">
+      <label for="result-grouping-${index}" class="eds-snap__rule-heading">${ruleName}</label>
+      <p>You're in a timeline where the EDS doesn't exist at all</p>
+      <label><input class="eds-snap__rule-select-all" data-checkbox-group="result-grouping-${index}" type="checkbox" />Highlight all</label>
+      <div class="eds-snap__rule-list">
+        <div class="eds-snap__rule-result">
+            <label><input type="checkbox" />Node 1</label>
+        </div>
+        <div class="eds-snap__rule-result">
+            <label><input type="checkbox" />Node 2</label>
+        </div>
+        <div class="eds-snap__rule-result">
+            <label><input type="checkbox" />Node 3</label>
+        </div>
+      </div>
+  </div>
+  `;
+
+  /* Static grouped rule for example */
+
   state.globalRuleResults.forEach(rule => {
     innerHTML += `<div class="result">${globalRuleResult(rule)}</div>`;
   });
