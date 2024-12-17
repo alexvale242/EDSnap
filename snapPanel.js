@@ -1,7 +1,7 @@
 function panelHeaderHTML() {
   const logoUrl = chrome.runtime.getURL('images/logo-green.png'); // Get the full URL for the logo
   const panelHtml = `
-    <header id="panel-header">
+    <header class="eds-snap__header" id="panel-header">
       <img src="${logoUrl}" alt="EDS Logo" id="snapPanelLogo">
       <button id="close-button">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -11,11 +11,6 @@ function panelHeaderHTML() {
 </header>`;
     return panelHtml;
 }
-
-function panelFooterHTML() { 
-  return `<footer><button id="runSnapButton">Run Snap</button>
-      <button id="unSnapButton">Unsnap</button></footer>`
- }
 
 function updatePanelContent(state) {
   const panel = document.getElementById('eds-snap-panel');
@@ -30,27 +25,28 @@ function updatePanelContent(state) {
 }
 
 function createPanel() {
-    var panel = document.getElementById('eds-snap-panel');
-    if (panel === null) {
-        panel = document.createElement('div');
-        panel.id = 'eds-snap-panel';
-        document.body.appendChild(panel);
-    }
+  var panel = document.getElementById('eds-snap-panel');
+  if (panel === null) {
+    panel = document.createElement('div');
+    panel.id = 'eds-snap-panel';
+    document.body.appendChild(panel);
+  }
 
-    const shadow = panel.attachShadow({ mode: 'open' });
-    
-    // Create a link element for the external stylesheet
-    const linkElem = document.createElement('link');
-    linkElem.setAttribute('rel', 'stylesheet');
-    linkElem.setAttribute('href', chrome.runtime.getURL('styles.css')); // Update with the correct path to your stylesheet
+  const shadow = panel.attachShadow({ mode: 'open' });
+  const linkElem = document.createElement('link');
+  linkElem.setAttribute('rel', 'stylesheet');
+  linkElem.setAttribute('href', chrome.runtime.getURL('styles.css'));
 
-    shadow.innerHTML = `
+  shadow.innerHTML = `
       ${linkElem.outerHTML}
-      <div id="eds-snap-panel-root">
-      ${panelHeaderHTML()}
-      <div id="eds-snap-panel-content"><h3 id="score"></h3></div>
-      ${panelFooterHTML()}
-      </div>
+      <div class="eds-snap">
+          ${panelHeaderHTML()}
+          <div class="eds-snap__content" id="eds-snap-panel-content">
+            <h1 id="eds-snap-title" class="eds-snap__title">20 UI enhancements identified</h1>
+            <div id="eds-snap-scoreboard" class="eds-snap__scoreboard"></div>
+            <div id="eds-rules-board" class="eds-snap__rules-board"></div>
+          </div>
+      </div> 
     `;
 
     shadow.getElementById('close-button').onclick = () => {
@@ -64,44 +60,43 @@ function createPanel() {
       panelContent.appendChild(createRulesContainer());
     };
 
-    shadow.querySelector('#unSnapButton').onclick = unSnap;
+  shadow.querySelector('#unSnapButton').onclick = unSnap;
 }
 
 function generateStateHtml(state) {
-    let html = `<div id="panel-score">`;
+  let html = `<div id="panel-score">`;
 
-    if (state !== undefined && state !== null) {
-        const percentage = (state.edsElementCount / state.totalElements * 100).toFixed(2);
-        html += `<p>Total Elements: ${state.totalElements} <br />
+  if (state !== undefined && state !== null) {
+    const percentage = (state.edsElementCount / state.totalElements * 100).toFixed(2);
+    html += `<p>Total Elements: ${state.totalElements} <br />
         <p>EDS Elements: ${state.edsElementCount} <br />
         <p>Score: ${state.score} <br />
         <p>Percentage: ${percentage}%</p>`;
-    }
+  }
 
-    html += "</div>";
-    return html;
+  html += "</div>";
+  return html;
 }
 
 function updateScore(state) {
-    updatePanelContent(state);
+  // updatePanelContent(state);
 }
 
 function clearScore() {
-  updatePanelContent();
+  // updatePanelContent();
 }
 
-function calculateAndDisplayScore() {
-    const score = calculateScore();
-    const panel = document.getElementById('eds-snap-panel');
-    const shadow = panel.shadowRoot;
-    const panelContent = shadow.getElementById('eds-snap-panel-content');
-    panelContent.querySelector('#score').style.display = 'block';
-    panelContent.querySelector('#score').innerText = `Score: ${score}`;
+function calculateAndDisplayScore(panelContent) {
+  calculateScore();
+  panelContent.querySelector('#eds-snap-scoreboard').innerHTML = 
+  `             
+  <div class="eds-snap__score">Score: ${state.score}</div>
+  <div class="eds-snap__score-data">
+      <div>Total Elements: ${state.totalElements}</div>
+      <div>EDS Elements: ${state.edsElementCount}</div>
+  </div>`
 }
 
-function calculateScore() {
-  return state.edsElementCount + state.ruleResults.filter(rule => rule.result).length - state.ruleResults.filter(rule => !rule.result).length; 
-}
 
 function createRulesContainer() {
   const rulesContainer = document.createElement('div');
@@ -136,11 +131,11 @@ function ruleResult(ruleResult) {
 }
 
 function globalRuleResult(ruleResult) {
-    const name = globalRuleDictionary[ruleResult.rule].name;
-    const severity = globalRuleDictionary[ruleResult.rule].severity;
-    const description = globalRuleDictionary[ruleResult.rule].description;
-    const result = ruleResult.result;
-    return `
+  const name = globalRuleDictionary[ruleResult.rule].name;
+  const severity = globalRuleDictionary[ruleResult.rule].severity;
+  const description = globalRuleDictionary[ruleResult.rule].description;
+  const result = ruleResult.result;
+  return `
     <div class="rule-result">
       <h3>${name}</h3>
       <p>Severity: ${severity}</p>
@@ -148,4 +143,4 @@ function globalRuleResult(ruleResult) {
       <p>Result: ${result}</p>
       </div>
     `;
-  }
+}

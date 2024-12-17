@@ -36,6 +36,10 @@ function nodeIsEdsComponent(node) {
     return COMPONENTS.some(component => node.nodeName === component.tag);
 }
 
+function calculateScore() {
+    state.score = state.edsElementCount + state.ruleResults.filter(rule => rule.result).length - state.ruleResults.filter(rule => !rule.result).length;
+  }
+
 function runSnap() {
     resetState();
     clearScore();
@@ -49,11 +53,6 @@ function runSnap() {
 function unSnap() {
     resetState();
     clearScore();
-}
-
-function calculateScore() {
-    const percentage = (state.edsElementCount / state.totalElements) * 100;
-    state.score = Math.floor(percentage / 10);
 }
 
 function resetState() {

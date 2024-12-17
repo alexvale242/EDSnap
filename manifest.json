@@ -17,7 +17,7 @@
     "content_scripts": [
       {
         "matches": ["https://*.enable.com/*"],
-        "js": ["script.js", "snapPanel.js", "rules/ruleParser.js", "constants.js", "main.js", "rules/ruleDictionary.js", "rules/globalRuleParser.js", "rules/globalRuleDictionary.js", "edsParser.js", "nodeHighlighter.js"],
+        "js": ["script.js", "ui.js", "snapPanel.js", "rules/ruleParser.js", "constants.js", "main.js", "rules/ruleDictionary.js", "rules/globalRuleParser.js", "rules/globalRuleDictionary.js", "edsParser.js", "nodeHighlighter.js"],
         "css": ["styles.css"],
         "run_at": "document_idle"
       }
