@@ -108,6 +108,7 @@ function createGroupHtml(rule, results, index) {
         <input id="result-grouping-${index}" class="eds-snap__rule-heading-toggle" type="checkbox">
         <label for="result-grouping-${index}" class="eds-snap__rule-heading">${ruleInfo.name}</label>
         <p>${ruleInfo.description}</p>
+        <p>${ruleInfo.severity.toUpperCase()}</p>
         <label><input class="eds-snap__rule-select-all" data-checkbox-group="result-grouping-${index}" type="checkbox" />Highlight all</label>
         <div class="eds-snap__rule-list">
             ${results.map((result, i) => `

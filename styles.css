@@ -539,7 +539,7 @@ body {
 .eds-snap__title {
     font-size: 32px;
     font-weight: 300;
-    margin-bottom: 16px;
+    margin: 16px 0;
     padding-left: 16px;
     color: var(--eds-font-color-faded);
 }
@@ -576,7 +576,6 @@ body {
 }
 
 .eds-snap__rule-heading {
-    padding: 16px 16px;
     margin-top: 8px;
     display: flex;
     font-size: 32px;
