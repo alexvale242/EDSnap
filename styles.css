@@ -527,13 +527,12 @@ body {
 
 .eds-snap__scoreboard {
     flex: 0 0 100px;
-    padding: 16px;
+    padding: 16px 8px;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0 8px;
     border-radius: 12px;
-    border-bottom: 1px solid var(--eds-brand-color-border-base);
 }
 
 .eds-snap__title {
