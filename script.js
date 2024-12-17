@@ -7,10 +7,6 @@ let state = {
     edsElements: []
 };
 
-function parseGlobalRules() {
-    globalRuleParser();
-}
-
 function traverseDOM(node) {
     if (node.nodeType === Node.ELEMENT_NODE || node.nodeType === Node.DOCUMENT_NODE) {
         if (nodeIrrellevant(node)) {

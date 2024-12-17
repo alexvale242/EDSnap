@@ -1,6 +1,6 @@
 const globalRules = [];
 
-function globalRuleParser() {
+function parseGlobalRules() {
     globalRules.forEach(({ ruleName, ruleCallback }) => {
         state.globalRuleResults.push({
             rule: ruleName,
