@@ -21,5 +21,11 @@ const ruleDictionary = {
         name: 'Button nested in link',
         severity: 'low',
         description: 'Links should not contain buttons',
+    },
+
+    tableUsingEdsTable: {
+        name: 'Table uses eds-table',
+        severity: 'low',
+        description: 'Tables should use the eds-table class',
     }
 }
