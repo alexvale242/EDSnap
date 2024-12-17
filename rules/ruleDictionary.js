@@ -32,6 +32,12 @@ const ruleDictionary = {
     searchUsingEdsSearch: {
         name: 'Search uses eds-search',
         severity: 'low',
-        description: 'Search should use the eds-search class',
+        description: 'Search should use the eds-search component',
+    },
+
+    pagerUsingEdsPager: {
+        name: 'Pager uses eds-pager',
+        severity: 'low',
+        description: 'Pager should use the eds-pager component',
     }
 }

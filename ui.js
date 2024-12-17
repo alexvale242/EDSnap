@@ -96,7 +96,6 @@ function updateRulesBoard(shadow) {
     var groupRuleHtml = [];
 
     Object.entries(groupedRuleResults).forEach(([rule, results], index) => {
-        debugger;
         groupRuleHtml.push(createGroupHtml(rule, results, index));
     });
 
