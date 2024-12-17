@@ -13,11 +13,14 @@ function traverseDOM(node) {
             return;
         }
 
-        ruleParser(node);
-        edsElementsParser(node);
         state.totalElements++;
+        ruleParser(node);
+        const shouldParseChildren = edsElementsParser(node);
 
-
+        if (!shouldParseChildren) {
+            return;
+        }
+        
         node.childNodes.forEach(traverseDOM);
     }
 }
@@ -26,10 +29,6 @@ function nodeIrrellevant(node) {
     const irrelevantNodeNames = ['HEAD', 'SCRIPT', 'STYLE', 'IFRAME', 'SVG'];
     const irrelevantIds = ['eds-snap-panel', 'grid-overlay'];
     return irrelevantNodeNames.includes(node.nodeName) || irrelevantIds.includes(node.id);
-}
-
-function nodeIsEdsComponent(node) {
-    return COMPONENTS.some(component => node.nodeName === component.tag);
 }
 
 function calculateScore() {
