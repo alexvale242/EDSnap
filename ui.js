@@ -1,11 +1,11 @@
 function init() {
     var panel = document.getElementById('eds-snap-panel');
     if (panel === null) {
-      panel = document.createElement('div');
-      panel.id = 'eds-snap-panel';
-      document.body.appendChild(panel);
+        panel = document.createElement('div');
+        panel.id = 'eds-snap-panel';
+        document.body.appendChild(panel);
     }
-  
+
     const shadow = panel.attachShadow({ mode: 'open' });
     const linkElem = document.createElement('link');
     linkElem.setAttribute('rel', 'stylesheet');
@@ -36,16 +36,16 @@ function init() {
             </div>
         </div> 
       `;
-  
+
     shadow.querySelector('#runSnapButton').onclick = () => {
-      runSnap();
-      render();
+        runSnap();
+        render();
     };
 
     shadow.querySelector('#close-button').onclick = () => {
         clear();
     };
-  
+
     runSnap();
     render();
 }
@@ -62,7 +62,7 @@ function render() {
     const shadow = panel.shadowRoot;
     updateTitle(shadow);
     updateScoreBoard(shadow);
-    updateRulesBoard(shadow); 
+    updateRulesBoard(shadow);
 }
 
 function updateTitle(shadow) {

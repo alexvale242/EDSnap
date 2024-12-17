@@ -78,14 +78,6 @@ function generateStateHtml(state) {
   return html;
 }
 
-function updateScore(state) {
-  // updatePanelContent(state);
-}
-
-function clearScore() {
-  // updatePanelContent();
-}
-
 function calculateAndDisplayScore(panelContent) {
   calculateScore();
   panelContent.querySelector('#eds-snap-scoreboard').innerHTML = 

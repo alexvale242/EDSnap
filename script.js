@@ -42,17 +42,10 @@ function calculateScore() {
 
 function runSnap() {
     resetState();
-    clearScore();
     parseGlobalRules();
     traverseDOM(document.documentElement);
     calculateScore();
-    updateScore(state);
     console.log(state.ruleResults);
-}
-
-function unSnap() {
-    resetState();
-    clearScore();
 }
 
 function resetState() {
