@@ -73,11 +73,13 @@ function updateTitle(shadow) {
 
 function updateScoreBoard(shadow) {
     const scoreboard = shadow.getElementById('eds-snap-scoreboard');
+    const percentage = (state.score / state.totalElements * 100).toFixed(1);
     scoreboard.innerHTML = `
     <div class="eds-snap__score">Score: ${state.score}</div>
     <div class="eds-snap__score-data">
         <div>Total Elements: ${state.totalElements}</div>
         <div>EDS Elements: ${state.edsElementCount}</div>
+        <div>EDS Usage: ${percentage}%</div>
     </div>`
 }
 
