@@ -42,7 +42,8 @@ function init() {
       render();
     };
   
-    shadow.querySelector('#unSnapButton').onclick = unSnap;
+    runSnap();
+    render();
 }
 
 function render() {

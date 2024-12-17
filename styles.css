@@ -538,7 +538,7 @@ body {
 
 .eds-snap__title {
     font-size: 32px;
-    font-weight: normal;
+    font-weight: 300;
     margin-bottom: 16px;
     padding-left: 16px;
     color: var(--eds-font-color-faded);
