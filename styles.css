@@ -19,13 +19,14 @@
 }
 
 #panel-header {
-    padding: 8px 16px;
+    padding: 16px 16px;
+    height: 64px;
     background-color: var(--eds-color-green-10);
 }
 
 #panel-header img {
     width: auto; 
-    height: 24px;
+    height: 32px;
 }
 
 #eds-snap-panel-content {
