@@ -587,6 +587,7 @@ fieldset {
 
 .eds-snap__rule-result:has(input[type="checkbox"]:checked) {
     background-color: var(--eds-color-green-10);
+    box-shadow: inset 1px 0px 4px 2px rgba(0, 0, 0, 0.1);
 }
 
 .eds-snap__rule-result-toggle {
