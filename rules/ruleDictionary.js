@@ -39,5 +39,11 @@ const ruleDictionary = {
         name: 'Pager uses eds-pager',
         severity: 'low',
         description: 'Pager should use the eds-pager component',
+    },
+
+    edsButtonInsteadOfBtn: {
+        name: 'Eds button used instead of bootstrap btn',
+        severity: 'low',
+        description: 'Buttons should use the eds-button component instead of bootstrap btn',
     }
 }
