@@ -85,85 +85,33 @@ function updateScoreBoard(shadow) {
 
 function updateRulesBoard(shadow) {
     const rulesBoard = shadow.getElementById('eds-rules-board');
-    rulesBoard.innerHTML = `
-    <div class="eds-snap__rule-heading"><span>Eds doesnt exist</span> <button>*</button></div>
-                <div class="eds-snap__rule-group">
-                    <div class="eds-snap__rule-result">
-                        <div class="rule"><span class="rule__title">Name</span> <span class="rule__description">Eds
-                                doesnt exist</span></div>
-                        <div class="rule"><span class="rule__title">Severity</span> <span
-                                class="rule__description">High</span></div>
-                        <div class="rule"><span class="rule__title">Description</span> <span
-                                class="rule__description">You're in a timeline where the EDS doesn't exist at all</span>
-                        </div>
-                    </div>
-                    <div class="eds-snap__rule-result">
-                        <div class="rule"><span class="rule__title">Name</span> <span class="rule__description">Eds
-                                doesnt exist</span></div>
-                        <div class="rule"><span class="rule__title">Severity</span> <span
-                                class="rule__description">High</span></div>
-                        <div class="rule"><span class="rule__title">Description</span> <span
-                                class="rule__description">You're in a timeline where the EDS doesn't exist at all</span>
-                        </div>
-                    </div>
-                    <div class="eds-snap__rule-result">
-                        <div class="rule"><span class="rule__title">Name</span> <span class="rule__description">Eds
-                                doesnt exist</span></div>
-                        <div class="rule"><span class="rule__title">Severity</span> <span
-                                class="rule__description">High</span></div>
-                        <div class="rule"><span class="rule__title">Description</span> <span
-                                class="rule__description">You're in a timeline where the EDS doesn't exist at all</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="eds-snap__rule-heading"><span>Form spilt wine on the carpet</span> <button>*</button>
-                </div>
-                <div class="eds-snap__rule-group">
-                    <div class="eds-snap__rule-result">
-                        <div class="rule"><span class="rule__title">Name</span> <span class="rule__description">Form
-                                spilt wine on the carpet</span></div>
-                        <div class="rule"><span class="rule__title">Severity</span> <span
-                                class="rule__description">High</span></div>
-                        <div class="rule"><span class="rule__title">Description</span> <span
-                                class="rule__description">You have a cream carpet and now its ruined</span></div>
-                    </div>
-                    <div class="eds-snap__rule-result">
-                        <div class="rule"><span class="rule__title">Name</span> <span class="rule__description">Form
-                                spilt wine on the carpet</span></div>
-                        <div class="rule"><span class="rule__title">Severity</span> <span
-                                class="rule__description">High</span></div>
-                        <div class="rule"><span class="rule__title">Description</span> <span
-                                class="rule__description">You have a cream carpet and now its ruined</span></div>
-                    </div>
-                    <div class="eds-snap__rule-result">
-                        <div class="rule"><span class="rule__title">Name</span> <span class="rule__description">Form
-                                spilt wine on the carpet</span></div>
-                        <div class="rule"><span class="rule__title">Severity</span> <span
-                                class="rule__description">High</span></div>
-                        <div class="rule"><span class="rule__title">Description</span> <span
-                                class="rule__description">You have a cream carpet and now its ruined</span></div>
-                    </div>
-                </div>
-                <div class="eds-snap__rule-heading"><span>Search bar not speaking to filters</span>
-                    <button>*</button>
-                </div>
-                <div class="eds-snap__rule-group eds-snap__rule-group--collapsed">
-                    <div class="eds-snap__rule-result">
-                        <div class="rule"><span class="rule__title">Name</span> <span class="rule__description">Search
-                                bar not speaking to filters</span></div>
-                        <div class="rule"><span class="rule__title">Severity</span> <span
-                                class="rule__description">Medium</span></div>
-                        <div class="rule"><span class="rule__title">Description</span> <span
-                                class="rule__description">They've had an argument about fonts</span></div>
-                    </div>
-                    <div class="eds-snap__rule-result">
-                        <div class="rule"><span class="rule__title">Name</span> <span class="rule__description">Search
-                                bar not speaking to filters</span></div>
-                        <div class="rule"><span class="rule__title">Severity</span> <span
-                                class="rule__description">Medium</span></div>
-                        <div class="rule"><span class="rule__title">Description</span> <span
-                                class="rule__description">They've had an argument about fonts</span></div>
-                    </div>
-                </div>
-    `;
+    const groupedRuleResults = state.ruleResults.filter(o => o.result == false).reduce((acc, curr) => {
+        if (!acc[curr.rule]) {
+            acc[curr.rule] = [];
+        }
+        acc[curr.rule].push(curr);
+        return acc;
+    }, {});
+
+    var groupRuleHtml = [];
+
+    Object.entries(groupedRuleResults).forEach(([rule, results]) => {
+        groupRuleHtml.push(createGroupHtml(rule, results));
+    });
+
+    rulesBoard.innerHTML = groupRuleHtml.join('');
+}
+
+function createGroupHtml(rule, results) {
+    const ruleInfo = ruleDictionary[rule] || { name: 'Unknown', severity: 'Unknown', description: 'No description available.' };
+    return `<div class="eds-snap__rule-heading"><span>${ruleInfo.name}</span> <button>*</button>
+    </div>
+    <div class="eds-snap__rule-group">
+        ${results.map(result => `
+        <div class="eds-snap__rule-result">
+            <div class="rule"><span class="rule__title">Name</span> <span class="rule__description">${ruleInfo.name}</span></div>
+            <div class="rule"><span class="rule__title">Severity</span> <span class="rule__description">${ruleInfo.severity}</span></div>
+            <div class="rule"><span class="rule__title">Description</span> <span class="rule__description">${ruleInfo.description}</span></div>
+        </div>`).join('')}
+    </div>`;
 }
