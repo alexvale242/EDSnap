@@ -599,6 +599,7 @@ fieldset {
     display: flex;
     font-size: 32px;
     font-weight: 100;
+    line-height: 2rem;
 }
 
 .rule {
@@ -649,7 +650,7 @@ fieldset {
     border-top: 8px solid currentColor;
     float: right;
     margin-right: .7rem;
-    margin-top: 20px;
+    margin-top: 15px;
     transition: transform .2s ease-out;
 }
 
