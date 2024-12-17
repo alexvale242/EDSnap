@@ -7,15 +7,15 @@
       "default_popup": "hello.html"
     },
     "icons": {
-      "16": "snap-icon-16.png",
-      "32": "snap-icon-32.png",
-      "48": "snap-icon-48.png",
-      "128": "snap-icon-128.png"
+      "16": "images/snap-icon-16.png",
+      "32": "images/snap-icon-32.png",
+      "48": "images/snap-icon-48.png",
+      "128": "images/snap-icon-128.png"
     },
     "content_scripts": [
       {
         "matches": ["https://*.enable.com/*"],
-        "js": ["script.js", "snapPanel.js", "ruleParser.js", "constants.js", "main.js", "ruleDictionary.js", "globalRuleParser.js", "globalRuleDictionary.js", "edsParser.js"],
+        "js": ["script.js", "snapPanel.js", "rules/ruleParser.js", "constants.js", "main.js", "rules/ruleDictionary.js", "rules/globalRuleParser.js", "rules/globalRuleDictionary.js", "edsParser.js"],
         "css": ["styles.css"],
         "run_at": "document_idle"
       }
@@ -30,7 +30,7 @@
   ],
   "web_accessible_resources": [
     {
-      "resources": ["EDSnap_Logo.png", "styles.css", "logo-green.png", "logo-black.png"],
+      "resources": ["images/EDSnap_Logo.png", "styles.css", "images/logo-green.png", "images/logo-black.png"],
       "matches":["https://*.enable.com/*"]
     }
   ]

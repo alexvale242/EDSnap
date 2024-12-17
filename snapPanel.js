@@ -1,5 +1,5 @@
 function panelHeaderHTML() {
-  const logoUrl = chrome.runtime.getURL('logo-green.png'); // Get the full URL for the logo
+  const logoUrl = chrome.runtime.getURL('images/logo-green.png'); // Get the full URL for the logo
   const panelHtml = `
     <header id="panel-header">
       <img src="${logoUrl}" alt="EDS Logo" id="snapPanelLogo">
