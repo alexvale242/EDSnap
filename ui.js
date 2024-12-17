@@ -41,9 +41,20 @@ function init() {
       runSnap();
       render();
     };
+
+    shadow.querySelector('#close-button').onclick = () => {
+        clear();
+    };
   
     runSnap();
     render();
+}
+
+function clear() {
+    var panel = document.getElementById('eds-snap-panel');
+    if (panel !== null) {
+        panel.remove();
+    }
 }
 
 function render() {
