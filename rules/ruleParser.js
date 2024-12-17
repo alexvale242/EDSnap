@@ -49,6 +49,17 @@ function edsButtonInsteadOfBtn(node) {
     return false;
 }
 
+function controlRegionExists(node) {
+    return node.classList && node.classList.contains('control-region');
+}
+
+function usesProfileMenu(node) {
+    const profileMenu = node.querySelector('eds-profile-menu');
+    
+    // Return true if the web component is found, otherwise false
+    return profileMenu !== null;
+}
+
 rule('selectHasEdsSelectClass', selectHasEdsSelectClass, node => node.nodeName === 'SELECT');
 rule('inputHasEdsInputClass', inputHasEdsInputClass, node => node.nodeName === 'INPUT' || node.nodeName === 'TEXTAREA' || node.nodeName === 'SELECT');
 rule('angularMaterialInUse', materialElementPresent, node => node.nodeName.toLowerCase().includes('mat'));
@@ -57,4 +68,6 @@ rule('tableUsingEdsTable', tableUsingEdsTable, node => node.nodeName === 'TABLE'
 rule('searchUsingEdsSearch', searchUsingEdsSearch, node => node.nodeName === 'INPUT' && node.type == 'search');
 rule('pagerUsingEdsPager', pagerUsingEdsPager, node => (node.classList && node.classList.contains('pager')) || (node.ariaLabel && node.ariaLabel == 'pagination'));
 rule('edsButtonInsteadOfBtn', edsButtonInsteadOfBtn, node => node.classList && node.classList.contains('btn'));
+rule('controlRegionInsteadOfActionBar', controlRegionExists, node => node.classList && node.classList.contains('action-bar'));
+rule('usesProfileMenu', usesProfileMenu, node => node.classList && (node.classList.contains('eds-nav-bar') || node.classList.contains('dealtrack-header')));
 

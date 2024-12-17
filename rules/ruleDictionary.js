@@ -45,5 +45,17 @@ const ruleDictionary = {
         name: 'Eds button used instead of bootstrap btn',
         severity: 'low',
         description: 'Buttons should use the eds-button component instead of bootstrap btn',
+    },
+
+    controlRegionInsteadOfActionBar: {
+        name: 'Control region is used',
+        severity: 'low',
+        description: 'Buttons should exist in a control region rather than the legacy action-bar',
+    },
+
+    usesProfileMenu: {
+        name: 'Profile menu is used',
+        severity: 'low',
+        description: 'The profile menu should exist in the header bar to allow simple tenant switching',
     }
 }
