@@ -146,6 +146,7 @@ function createGroupHtml(rule, results, index) {
 }
 
 function createEDSComponentGroupHtml() {
+    console.log(state.edsElements)
     return `<div class="eds-snap__rule-group eds-component">
         <input id="eds-component-group" class="eds-snap__rule-heading-toggle" type="checkbox">
         <label for="eds-component-group" class="eds-snap__rule-heading">EDS Components</label>
@@ -153,9 +154,9 @@ function createEDSComponentGroupHtml() {
         <label><input class="eds-snap__rule-select-all" data-checkbox-group="eds-component-group" type="checkbox" />Highlight all</label>
         <div class="eds-snap__rule-list">
             ${state.edsElements.map((node, i) => `
-            <div class="eds-snap__rule-result">
-                <label><input type="checkbox" id="eds-component-${i}"/>${node.nodeName}</label>
-            </div>`).join('')}
+            <label class="eds-snap__rule-result">
+                <input type="checkbox" class="eds-snap__rule-result-toggle" id="eds-component-${i}"/><p>${node.localName}${node.id ? `#${node.id}` : ''} ${node.className ? `.${node.className}` : '' }</p>
+            </label>`).join('')}
         </div>
     </div>`;
 }
