@@ -132,7 +132,7 @@ function createGroupHtml(rule, results, index) {
 }
 
 function createEDSComponentGroupHtml() {
-    return `<div class="eds-snap__rule-group result eds-component">
+    return `<div class="eds-snap__rule-group eds-component">
         <input id="eds-component-group" class="eds-snap__rule-heading-toggle" type="checkbox">
         <label for="eds-component-group" class="eds-snap__rule-heading">EDS Components</label>
         <p>These are the EDS components that were found in the page</p>
