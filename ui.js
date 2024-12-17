@@ -85,6 +85,14 @@ function updateScoreBoard(shadow) {
 
 function updateRulesBoard(shadow) {
     const rulesBoard = shadow.getElementById('eds-rules-board');
+    const failingGlobals = state.globalRuleResults.filter(o => o.result == false);
+
+    var groupRuleHtml = [];
+
+    failingGlobals.forEach(rule => {
+        groupRuleHtml.push(createGlobalRuleHtml(rule));
+    })
+
     const groupedRuleResults = state.ruleResults.filter(o => o.result == false).reduce((acc, curr) => {
         if (!acc[curr.rule]) {
             acc[curr.rule] = [];
@@ -92,8 +100,6 @@ function updateRulesBoard(shadow) {
         acc[curr.rule].push(curr);
         return acc;
     }, {});
-
-    var groupRuleHtml = [];
 
     Object.entries(groupedRuleResults).forEach(([rule, results], index) => {
         groupRuleHtml.push(createGroupHtml(rule, results, index));
@@ -113,6 +119,14 @@ function escapeHtml(unsafe) {
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
+}
+
+function createGlobalRuleHtml(rule) {
+    const ruleInfo = globalRuleDictionary[rule.rule] || { name: 'Unknown', severity: 'Unknown', description: 'No description available.' };
+    return `<div class="eds-snap__rule-group">
+        <label class="eds-snap__rule-heading eds-snap__rule-heading--no-toggle">${ruleInfo.name}</label>
+        <p>${ruleInfo.description}</p>
+    </div>`;
 }
 
 function createGroupHtml(rule, results, index) {

@@ -657,7 +657,7 @@ fieldset {
     display: block;
 }
 
-.eds-snap__rule-heading:after {
+.eds-snap__rule-heading:not(.eds-snap__rule-heading--no-toggle):after {
     content: ' ';
     border-right: 8px solid transparent;
     border-left: 8px solid transparent;

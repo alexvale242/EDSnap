@@ -51,11 +51,5 @@ const ruleDictionary = {
         name: 'Control region is used',
         severity: 'low',
         description: 'Buttons should exist in a control region rather than the legacy action-bar',
-    },
-
-    usesProfileMenu: {
-        name: 'Profile menu is used',
-        severity: 'low',
-        description: 'The profile menu should exist in the header bar to allow simple tenant switching',
     }
 }

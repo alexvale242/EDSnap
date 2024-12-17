@@ -17,4 +17,10 @@ function edsIsInstalled() {
     return document.getElementById('grid-overlay') !== null;
 }
 
+function usesProfileMenu() {
+    return document.getElementsByTagName('eds-profile-menu').length !== 0;
+}
+
+
 rule('edsIsInstalled', edsIsInstalled);
+rule('usesProfileMenu', usesProfileMenu);
