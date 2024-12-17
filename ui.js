@@ -99,7 +99,11 @@ function updateRulesBoard(shadow) {
         groupRuleHtml.push(createGroupHtml(rule, results, index));
     });
 
+    groupRuleHtml.push(createEDSComponentGroupHtml());
+
     rulesBoard.innerHTML = groupRuleHtml.join('');
+
+    addHighlightHandlers(shadow, groupedRuleResults);
 }
 
 function createGroupHtml(rule, results, index) {
@@ -113,8 +117,111 @@ function createGroupHtml(rule, results, index) {
         <div class="eds-snap__rule-list">
             ${results.map((result, i) => `
             <div class="eds-snap__rule-result">
-                <label><input type="checkbox" />Node ${i + 1}</label>
+                <label><input type="checkbox" id="rule-result-${index}-${i}"/>Node ${i + 1}</label>
             </div>`).join('')}
         </div>
     </div>`;
+}
+
+function createEDSComponentGroupHtml() {
+    return `<div class="eds-snap__rule-group eds-component">
+        <input id="eds-component-group" class="eds-snap__rule-heading-toggle" type="checkbox">
+        <label for="eds-component-group" class="eds-snap__rule-heading">EDS Components</label>
+        <p>These are the EDS components that were found in the page</p>
+        <label><input class="eds-snap__rule-select-all" data-checkbox-group="eds-component-group" type="checkbox" />Highlight all</label>
+        <div class="eds-snap__rule-list">
+            ${state.edsElements.map((node, i) => `
+            <div class="eds-snap__rule-result">
+                <label><input type="checkbox" id="eds-component-${i}"/>${node.nodeName}</label>
+            </div>`).join('')}
+        </div>
+    </div>`;
+}
+
+function addHighlightHandlers(shadow, groupedRuleResults) {
+    // Add highlight all checkbox behaviour
+    const checkboxes = shadow.querySelectorAll('[data-checkbox-group^="result-grouping-"]');
+    checkboxes.forEach((checkbox, index) => {
+        checkbox.onclick = (checkbox) => {
+            const results = groupedRuleResults[Object.keys(groupedRuleResults)[index]];
+            if (checkbox.target.checked) {
+                activateGroup(results);
+            } else {
+                deactivateGroup(results);
+            }
+        };
+    });
+
+    // Add individual checkbox behaviour
+    const individualCheckboxes = shadow.querySelectorAll('[id^="rule-result-"]');
+
+    individualCheckboxes.forEach((checkbox, index) => {
+        // Use the multi part ID to identify the specific checbox
+        const groupIndex = checkbox.id.split('-')[2];
+        const resultIndex = checkbox.id.split('-')[3];
+        const result = groupedRuleResults[Object.keys(groupedRuleResults)[groupIndex]][resultIndex];
+
+        checkbox.onclick = (checkbox) => {
+            if (checkbox.target.checked) {
+                // deactivate all other checkboxes in the group then activate the selected one
+                const otherCheckboxes = shadow.querySelectorAll('[id^="rule-result-"]:not(#' + checkbox.target.id + ')');
+                otherCheckboxes.forEach(otherCheckbox => {
+                    otherCheckbox.checked = false;
+                    const otherGroupIndex = otherCheckbox.id.split('-')[2];
+                    const otherResultIndex = otherCheckbox.id.split('-')[3];
+                    const otherResult = groupedRuleResults[Object.keys(groupedRuleResults)[otherGroupIndex]][otherResultIndex];
+                    deactivateNode(otherResult);
+                });
+                activateNode(result);
+            } else {
+                deactivateNode(result);
+            }
+        };
+    });
+
+    // Add highlight all EDS component checkbox behaviour
+    const edsComponentCheckbox = shadow.querySelector('[data-checkbox-group="eds-component-group"]');
+    edsComponentCheckbox.onclick = (checkbox) => {
+        if (checkbox.target.checked) {
+            highlightNodeGroup(state.edsElements, true);
+        } else {
+            removeHighlightFromNodeGroup(state.edsElements);
+        }
+    };
+
+    // Add individual EDS component checkbox behaviour
+    const edsComponentIndividualCheckboxes = shadow.querySelectorAll('[id^="eds-component-"]');
+    edsComponentIndividualCheckboxes.forEach((checkbox, index) => {
+        checkbox.onclick = (checkbox) => {
+            if (checkbox.target.checked) {
+                highlightSingleNode(state.edsElements[index], true);
+            } else {
+                removeHighlightFromSingleNode(state.edsElements[index]);
+            }
+        };
+    });
+}
+
+function activateGroup(results) {
+    const nodes = results.map((result, i) => {
+        return result.node
+    });
+
+    highlightNodeGroup(nodes);
+}
+
+function deactivateGroup(results) {
+    const nodes = results.map((result, i) => {
+        return result.node
+    });
+
+    removeHighlightFromNodeGroup(nodes);
+}
+
+function activateNode(result) {
+    highlightSingleNode(result.node);
+}
+
+function deactivateNode(result) {
+    removeHighlightFromSingleNode(result.node);
 }
