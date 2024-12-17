@@ -27,5 +27,11 @@ const ruleDictionary = {
         name: 'Table uses eds-table',
         severity: 'low',
         description: 'Tables should use the eds-table class',
+    },
+
+    searchUsingEdsSearch: {
+        name: 'Search uses eds-search',
+        severity: 'low',
+        description: 'Search should use the eds-search class',
     }
 }
