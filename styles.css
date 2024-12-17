@@ -641,12 +641,12 @@ body {
 
 .eds-snap__rule-heading:after {
     content: ' ';
-    border-right: 5px solid transparent;
-    border-left: 5px solid transparent;
-    border-top: 5px solid currentColor;
+    border-right: 8px solid transparent;
+    border-left: 8px solid transparent;
+    border-top: 8px solid currentColor;
     float: right;
     margin-right: .7rem;
-    transform: translateY(7px);
+    margin-top: 20px;
     transition: transform .2s ease-out;
 }
 
