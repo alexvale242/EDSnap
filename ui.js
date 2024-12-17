@@ -9,7 +9,7 @@ function init() {
     const shadow = panel.attachShadow({ mode: 'open' });
     const linkElem = document.createElement('link');
     linkElem.setAttribute('rel', 'stylesheet');
-    linkElem.setAttribute('href', chrome.runtime.getURL('styles.css'));
+    linkElem.setAttribute('href', chrome.runtime.getURL('extensionsStyles.css'));
     const logoUrl = chrome.runtime.getURL('images/logo-green.png'); // Get the full URL for the logo
     shadow.innerHTML = `
         ${linkElem.outerHTML}
