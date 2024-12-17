@@ -66,7 +66,7 @@ function render() {
 }
 
 function updateTitle(shadow) {
-    const ruleCount = state.ruleResults.length + state.globalRuleResults.length;
+    const ruleCount = state.ruleResults.filter(o => o.result == false).length + state.globalRuleResults.filter(o => o.result == false).length;
     const title = shadow.getElementById('eds-snap-title');
     title.innerText = `${ruleCount} UI enhancements identified`;
 }
