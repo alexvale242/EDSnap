@@ -480,6 +480,14 @@ body {
     font-family: 'proxima-nova', sans-serif;
 }
 
+.eds-snap__content {
+    padding: 16px;
+    overflow: auto;
+    flex-direction: column;
+    height: calc(100% - 64px);
+    padding-bottom: 32px;
+}
+
 .eds-snap {
     position: fixed;
     width: 500px;
@@ -539,7 +547,7 @@ body {
 .eds-snap__title {
     font-size: 32px;
     font-weight: 300;
-    margin: 16px 0;
+    margin-bottom: 16px;
     padding-left: 16px;
     color: var(--eds-font-color-faded);
 }
@@ -577,6 +585,7 @@ body {
 
 .eds-snap__rule-heading {
     margin-top: 8px;
+    padding: 8px 0;
     display: flex;
     font-size: 32px;
     font-weight: 100;
