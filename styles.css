@@ -29,6 +29,17 @@
     height: 32px;
 }
 
+#close-button {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    width: 32px;
+    height: 32px;
+}
+
 #eds-snap-panel-content {
     padding: 20px 16px;
 }

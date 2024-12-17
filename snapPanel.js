@@ -3,6 +3,11 @@ function panelHeaderHTML() {
   const panelHtml = `
     <header id="panel-header">
       <img src="${logoUrl}" alt="EDS Logo" id="snapPanelLogo">
+      <button id="close-button">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+        </svg>
+      </button>
 </header>`;
     return panelHtml;
 }
@@ -47,6 +52,10 @@ function createPanel() {
       ${panelFooterHTML()}
       </div>
     `;
+
+    shadow.getElementById('close-button').onclick = () => {
+      panel.remove();
+    };
 
     shadow.querySelector('#runSnapButton').onclick = () => {
       runSnap();
