@@ -516,37 +516,7 @@ body {
     }
 }
 
-<<<<<<< Updated upstream
-.eds-snap__content {
-=======
-#panel-header img {
-    width: auto; 
-    height: 32px;
-}
-
-#close-button {
-    position: absolute;
-    right: 16px;
-    top: 16px;
-    cursor: pointer;
-    background: none;
-    border: none;
-    width: 32px;
-    height: 32px;
-}
-
-#eds-snap-panel-content {
-    padding: 20px 16px;
-}
-
-
-
-#panel-score {
-    border-bottom: 1px solid var(--eds-brand-color-border-base);
-}
-
 .result {
->>>>>>> Stashed changes
     padding: 16px;
     overflow: auto;
     display: flex;
