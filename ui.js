@@ -96,6 +96,7 @@ function updateRulesBoard(shadow) {
     var groupRuleHtml = [];
 
     Object.entries(groupedRuleResults).forEach(([rule, results], index) => {
+        debugger;
         groupRuleHtml.push(createGroupHtml(rule, results, index));
     });
 
@@ -106,19 +107,27 @@ function updateRulesBoard(shadow) {
     addHighlightHandlers(shadow, groupedRuleResults);
 }
 
+function escapeHtml(unsafe) {
+    return unsafe
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
 function createGroupHtml(rule, results, index) {
     const ruleInfo = ruleDictionary[rule] || { name: 'Unknown', severity: 'Unknown', description: 'No description available.' };
-    return `<div class="eds-snap__rule-group result">
+    return `<div class="eds-snap__rule-group">
         <input id="result-grouping-${index}" class="eds-snap__rule-heading-toggle" type="checkbox">
         <label for="result-grouping-${index}" class="eds-snap__rule-heading">${ruleInfo.name}</label>
         <p>${ruleInfo.description}</p>
-        <p>${ruleInfo.severity.toUpperCase()}</p>
         <label><input class="eds-snap__rule-select-all" data-checkbox-group="result-grouping-${index}" type="checkbox" />Highlight all</label>
         <div class="eds-snap__rule-list">
             ${results.map((result, i) => `
-            <div class="eds-snap__rule-result">
-                <label><input type="checkbox" id="rule-result-${index}-${i}"/>Node ${i + 1}</label>
-            </div>`).join('')}
+            <label class="eds-snap__rule-result">
+                <input class="eds-snap__rule-result-toggle" id="rule-result-${index}-${i}" type="checkbox" /><p>${escapeHtml(result.node.outerHTML)}</p>
+            </label>`).join('')}
         </div>
     </div>`;
 }
