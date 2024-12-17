@@ -27,5 +27,23 @@ const ruleDictionary = {
         name: 'Table uses eds-table',
         severity: 'low',
         description: 'Tables should use the eds-table class',
+    },
+
+    searchUsingEdsSearch: {
+        name: 'Search uses eds-search',
+        severity: 'low',
+        description: 'Search should use the eds-search component',
+    },
+
+    pagerUsingEdsPager: {
+        name: 'Pager uses eds-pager',
+        severity: 'low',
+        description: 'Pager should use the eds-pager component',
+    },
+
+    edsButtonInsteadOfBtn: {
+        name: 'Eds button used instead of bootstrap btn',
+        severity: 'low',
+        description: 'Buttons should use the eds-button component instead of bootstrap btn',
     }
 }

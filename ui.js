@@ -73,7 +73,7 @@ function updateTitle(shadow) {
 
 function updateScoreBoard(shadow) {
     const scoreboard = shadow.getElementById('eds-snap-scoreboard');
-    const percentage = (state.score / state.totalElements * 100).toFixed(1);
+    const percentage = (state.edsElementCount / state.totalElements * 100).toFixed(1);
     scoreboard.innerHTML = `
     <div class="eds-snap__score">Score: ${state.score}</div>
     <div class="eds-snap__score-data">
@@ -106,25 +106,33 @@ function updateRulesBoard(shadow) {
     addHighlightHandlers(shadow, groupedRuleResults);
 }
 
+function escapeHtml(unsafe) {
+    return unsafe
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
 function createGroupHtml(rule, results, index) {
     const ruleInfo = ruleDictionary[rule] || { name: 'Unknown', severity: 'Unknown', description: 'No description available.' };
-    return `<div class="eds-snap__rule-group result">
+    return `<div class="eds-snap__rule-group">
         <input id="result-grouping-${index}" class="eds-snap__rule-heading-toggle" type="checkbox">
         <label for="result-grouping-${index}" class="eds-snap__rule-heading">${ruleInfo.name}</label>
         <p>${ruleInfo.description}</p>
-        <p>${ruleInfo.severity.toUpperCase()}</p>
         <label><input class="eds-snap__rule-select-all" data-checkbox-group="result-grouping-${index}" type="checkbox" />Highlight all</label>
         <div class="eds-snap__rule-list">
             ${results.map((result, i) => `
-            <div class="eds-snap__rule-result">
-                <label><input type="checkbox" id="rule-result-${index}-${i}"/>Node ${i + 1}</label>
-            </div>`).join('')}
+            <label class="eds-snap__rule-result">
+                <input class="eds-snap__rule-result-toggle" id="rule-result-${index}-${i}" type="checkbox" /><p>${escapeHtml(result.node.outerHTML)}</p>
+            </label>`).join('')}
         </div>
     </div>`;
 }
 
 function createEDSComponentGroupHtml() {
-    return `<div class="eds-snap__rule-group result eds-component">
+    return `<div class="eds-snap__rule-group eds-component">
         <input id="eds-component-group" class="eds-snap__rule-heading-toggle" type="checkbox">
         <label for="eds-component-group" class="eds-snap__rule-heading">EDS Components</label>
         <p>These are the EDS components that were found in the page</p>
