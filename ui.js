@@ -133,7 +133,7 @@ function createGroupHtml(rule, results, index) {
     const ruleInfo = ruleDictionary[rule] || { name: 'Unknown', severity: 'Unknown', description: 'No description available.' };
     return `<div class="eds-snap__rule-group">
         <input id="result-grouping-${index}" class="eds-snap__rule-heading-toggle" type="checkbox">
-        <label for="result-grouping-${index}" class="eds-snap__rule-heading">${ruleInfo.name}</label>
+        <label for="result-grouping-${index}" class="eds-snap__rule-heading">${ruleInfo.name} <span>(${results.length})</span></label>
         <p>${ruleInfo.description}</p>
         <label><input class="eds-snap__rule-select-all" data-checkbox-group="result-grouping-${index}" type="checkbox" />Highlight all</label>
         <div class="eds-snap__rule-list">
@@ -147,9 +147,13 @@ function createGroupHtml(rule, results, index) {
 
 function createEDSComponentGroupHtml() {
     console.log(state.edsElements)
+    if (state.edsElements.length === 0) {
+        return '';
+    }
+    
     return `<div class="eds-snap__rule-group eds-component">
         <input id="eds-component-group" class="eds-snap__rule-heading-toggle" type="checkbox">
-        <label for="eds-component-group" class="eds-snap__rule-heading">EDS Components</label>
+        <label for="eds-component-group" class="eds-snap__rule-heading">EDS Components <span>(${state.edsElements.length})</span></label>
         <p>These are the EDS components that were found in the page</p>
         <label><input class="eds-snap__rule-select-all" data-checkbox-group="eds-component-group" type="checkbox" />Highlight all</label>
         <div class="eds-snap__rule-list">
